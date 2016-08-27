@@ -19,9 +19,21 @@ nameElement = document.getElementById("owner_name")
 nameElement.innerHTML = shop.owner.name
 document.title = "#{shop.owner.name}'s Pet Shop"
 
+# 获取动物对象,返回动物发出的声音
+animalSound = (animal) ->
+	switch animal.type
+		when "cat" then "meow"
+		when "dog" then "bark"
+		when "horse" then "donkey"
+		else "sniff sniff"
+
+# 格式化动物声音
+formatPetName = (pet) ->
+	"#{pet.name} <span class='sound'>#{animalSound pet}!</span>"
+
 # 创建宠物列表
 petOutput = for pet, i in shop.animals
-	"<li><a href='#' onclick='selectPet(#{i}, this)'>#{pet.name}</a></li>"
+	"<li><a href='#' onclick='selectPet(#{i}, this)'>#{formatPetName pet}</a></li>"
 availablePets = document.getElementById("available_pets")
 availablePets.innerHTML = petOutput.join " "
 
